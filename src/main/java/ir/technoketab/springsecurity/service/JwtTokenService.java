@@ -54,10 +54,10 @@ public class JwtTokenService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().build().parseSignedClaims(token).getPayload();
+        return Jwts.parser().verifyWith(getKey()).build().parseSignedClaims(token).getPayload();
     }
 
-    private Key getKey() {
+    private SecretKey getKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
